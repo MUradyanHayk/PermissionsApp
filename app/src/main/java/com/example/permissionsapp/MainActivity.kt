@@ -28,7 +28,9 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), RQ_PERMISSION_FOR_FEATURE_1_CODE)
             }
         }
-        binding.feature2Button.setOnClickListener { }
+        binding.feature2Button.setOnClickListener {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECORD_AUDIO), RQ_PERMISSION_FOR_FEATURE_2_CODE)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -53,7 +55,11 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
-            RQ_PERMISSION_FOR_FEATURE_2_CODE -> {}
+            RQ_PERMISSION_FOR_FEATURE_2_CODE -> {
+                if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                    Toast.makeText(this, "Location & record audio permission grated", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
